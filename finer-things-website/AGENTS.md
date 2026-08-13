@@ -277,3 +277,61 @@ Also verify that every relative `.html` link resolves, inspect remaining `href="
 - Supply and connect the LinkedIn URL, contact destination, newsletter platform, and form handlers.
 - Have legal counsel replace or approve the placeholder Privacy Policy and Terms.
 - Polish individual pages only after preserving the current restrained visual system and connected navigation.
+
+## Deployment diagnosis — cinematic portfolio Featured section (2026-08-13)
+
+The deployed URL `https://finer-things.pages.dev/mockup-cinematic-portfolio` was reported to show the Featured heading, introduction, and button but none of the four sticky project chapters. No code was changed during this diagnosis.
+
+- The deployed HTML and local `mockup-cinematic-portfolio.html` have the same SHA-256 hash, so this is not a stale or different deployment.
+- All eight images used by the four chapters return HTTP `200`; missing assets are not the cause.
+- Embedded JavaScript passes a syntax check.
+- The fragile point is the fail-closed reveal: `.project-chapter` starts fully hidden with `clip-path: inset(0 0 100% 0)` and becomes visible only after its `IntersectionObserver` adds `.in-view`. If that observer is not delivered or the page's script encounters a runtime/environment problem, the chapters remain permanently clipped while the independently revealed Featured heading still appears.
+- Recommended repair when approved: make the chapters visible by default, apply the initial clipping only after JavaScript marks the document as motion-ready, use a low/zero observer threshold, reveal already-visible chapters immediately, and add a short safety fallback that removes the clipping if observation does not run. Preserve the sticky stacking and reduced-motion behavior.
+
+### Implemented fix
+
+The fail-safe repair is now implemented in the parent-level `mockup-cinematic-portfolio.html`:
+
+- Project chapters are visible in the base CSS rather than permanently depending on JavaScript.
+- JavaScript applies the clipped entrance only after adding `motion-ready` and `awaiting-reveal` states.
+- Any chapter already visible during initialization is revealed immediately.
+- The observer threshold is now `0.01`, with a small positive bottom root margin, so partially visible sticky chapters trigger reliably.
+- A 2.2-second fail-open fallback reveals any chapter still awaiting an observer callback.
+- Browsers without `IntersectionObserver` and reduced-motion visitors receive fully visible chapters.
+- The sticky project cascade and image drift are preserved.
+- Embedded JavaScript syntax and all referenced local assets were validated after the edit.
+
+## Proposed production architecture — 2026-08-12 (guidance only, not implemented)
+
+The user is considering rebuilding the approved standalone HTML studies as a headless WordPress site with a Next.js frontend. The recommended production direction is a template-controlled CMS, not a free-form WordPress page builder. Next.js should own layouts, typography, motion, responsive behavior, navigation, and transitions; WordPress should own structured copy, project/service records, images, SEO fields, and global business information. This keeps the luxury art direction consistent while allowing the client to edit content safely.
+
+Recommended shape:
+
+- Public frontend: Next.js App Router on `www` (Vercel is the simplest deployment choice).
+- CMS: managed WordPress on a separate `cms` subdomain.
+- Content API: native WordPress REST API with ACF Pro fields exposed to REST. For this site's modest, predictable content model, REST is simpler than adding WPGraphQL. Reconsider GraphQL only if nested querying or a larger catalog makes it materially useful.
+- Rendering: Server Components by default. Use small Client Components only for menus, forms, video behavior, and motion/scroll interactions.
+- Publishing: cache public content in Next.js and have a signed WordPress publish webhook call a Next.js Route Handler that invalidates content tags. Use Next.js Draft Mode for authenticated previews.
+- Media: WordPress Media Library backed by an image CDN/object storage when production hosting is chosen; configure `next/image` remote patterns. Keep substantial video on a video/CDN service if the library grows.
+- Forms: submit through a server-side Next.js Route Handler to the chosen email/CRM/newsletter provider, with validation, spam protection, and rate limiting. Do not expose provider or WordPress credentials in browser code.
+
+Suggested WordPress content model:
+
+- `project`: project name, slug, property/location, hero, introduction, structured chapters, gallery, related/next project, and SEO.
+- `service`: title, number, hero, introduction, scope rows, editorial media, materials/layers, process steps, selected-project relation, and CTA.
+- `collection_item`: use only if Finer Living will become a real editable collection/catalog; include still, making-of media, maker/material details, status, and related CTA.
+- WordPress Pages: About, Contact introduction, Privacy Policy, and Terms.
+- Global options: header/navigation, footer, contact details, social links, newsletter copy, CTA defaults, and approved proof numbers/testimonial.
+
+Do not let editors rearrange arbitrary visual blocks on the main pages. If limited flexibility is required later, offer a small allow-list of designed editorial modules with locked field structures. Keep factual status explicit in the CMS: `100+` artisans, `50` destinations, the testimonial, and Finer Living availability remain unverified until the client confirms them.
+
+Suggested Next.js organization:
+
+- `app/` for route layouts and page templates.
+- `components/layout/` for the single shared header, menu, footer, page transition, and CTA.
+- `components/sections/` for reusable editorial sections.
+- `components/motion/` for the restrained shared motion vocabulary and reduced-motion handling.
+- `lib/wordpress/` for the API client, endpoint queries, normalization, runtime validation, preview handling, and cache tags.
+- `types/` for normalized CMS models; page components should not consume raw WordPress responses directly.
+
+Estimated effort for one experienced developer, assuming the design and content are substantially settled: approximately 3–5 weeks for the frontend conversion, WordPress model/admin, content migration, previews/revalidation, forms/SEO, and responsive/performance/accessibility QA. Allow roughly 5–8 weeks if the developer is learning Next.js or headless WordPress during the build. The CMS itself is moderate; matching the current cinematic motion and responsive visual quality is the harder part.

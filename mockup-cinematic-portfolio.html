@@ -488,8 +488,9 @@
   /* Editorial project chapters — oversized pages that stack on scroll */
   .project-cascade{position:relative;padding-bottom:4vh}
   .project-chapter{position:sticky;top:clamp(68px,8vh,92px);height:min(78vh,780px);min-height:600px;margin-bottom:12vh;overflow:hidden;background:#171611;
-    clip-path:inset(0 0 100% 0);box-shadow:0 30px 80px rgba(0,0,0,.28);transition:clip-path 1.35s cubic-bezier(.76,0,.24,1)}
-  .project-chapter.in-view{clip-path:inset(0)}.project-chapter:last-child{margin-bottom:0}
+    clip-path:inset(0);box-shadow:0 30px 80px rgba(0,0,0,.28);transition:clip-path 1.35s cubic-bezier(.76,0,.24,1)}
+  .motion-ready .project-chapter.awaiting-reveal{clip-path:inset(0 0 100% 0)}
+  .motion-ready .project-chapter.in-view{clip-path:inset(0)}.project-chapter:last-child{margin-bottom:0}
   .chapter-main{position:absolute;inset:-5%;width:110%;height:110%;filter:saturate(.7) brightness(.77);transform:scale(1.07);will-change:transform}
   .chapter-shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(16,13,10,.56),transparent 60%),linear-gradient(180deg,transparent 48%,rgba(16,13,10,.72))}
   .chapter-copy{position:absolute;z-index:4;left:clamp(24px,4vw,58px);right:clamp(24px,4vw,58px);bottom:clamp(28px,5vh,52px);display:grid;grid-template-columns:50px 1fr auto;gap:22px;align-items:end;color:var(--paper)}
@@ -864,10 +865,29 @@
   /* ===== editorial project chapters ===== */
   const motionAllowed=!matchMedia('(prefers-reduced-motion:reduce)').matches;
   const chapters=[...document.querySelectorAll('.project-chapter')];
-  const chapterIO=new IntersectionObserver(entries=>entries.forEach(entry=>{
-    if(entry.isIntersecting){entry.target.classList.add('in-view');chapterIO.unobserve(entry.target);}
-  }),{threshold:.18,rootMargin:'0px 0px -8% 0px'});
-  chapters.forEach(chapter=>chapterIO.observe(chapter));
+  const revealChapter=chapter=>{
+    chapter.classList.add('in-view');
+    chapter.classList.remove('awaiting-reveal');
+  };
+  let chapterIO=null;
+  if(motionAllowed&&'IntersectionObserver' in window){
+    chapters.forEach(chapter=>chapter.classList.add('awaiting-reveal'));
+    document.documentElement.classList.add('motion-ready');
+    chapterIO=new IntersectionObserver(entries=>entries.forEach(entry=>{
+      if(entry.isIntersecting){revealChapter(entry.target);chapterIO.unobserve(entry.target);}
+    }),{threshold:.01,rootMargin:'0px 0px 8% 0px'});
+    chapters.forEach(chapter=>{
+      const rect=chapter.getBoundingClientRect();
+      if(rect.top<innerHeight&&rect.bottom>0)revealChapter(chapter);
+      else chapterIO.observe(chapter);
+    });
+    // Fail open if a browser delays or suppresses observer delivery.
+    setTimeout(()=>chapters.forEach(chapter=>{
+      if(chapter.classList.contains('awaiting-reveal'))revealChapter(chapter);
+    }),2200);
+  }else{
+    chapters.forEach(revealChapter);
+  }
   let chapterQueued=false;
   function moveChapters(){
     if(motionAllowed){chapters.forEach(chapter=>{
