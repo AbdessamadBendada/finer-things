@@ -193,6 +193,7 @@ The current public website is `https://finerthingsdesigns.com/`. Useful confirme
 - Each chapter has a full image, minimal caption, and floating detail crop.
 - This replaced a rejected hover-based project-index concept.
 - The user has not explicitly approved this replacement yet.
+- **2026-08-13 deployment fix:** The project chapters now fail open instead of remaining permanently clipped when `IntersectionObserver` delivery is delayed or unavailable. Base CSS keeps chapters visible; JavaScript applies the cinematic clip only after adding `motion-ready`/`awaiting-reveal`, immediately reveals chapters already in view, observes the rest at a `0.01` threshold, and includes a 2.2-second safety reveal. The sticky stacking and reduced-motion behavior remain intact. This fix was pushed to `main` in commit `fcb08c4`; the detailed diagnosis is recorded in `finer-things-website/AGENTS.md`.
 
 ### Atelier Filmstrip (`mockup-atelier-filmstrip.html`)
 
