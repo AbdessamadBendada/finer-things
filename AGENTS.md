@@ -263,6 +263,7 @@ The user approved the cleanup across the parent `alex playground` and this repos
 - `.gitignore` excludes Finder `.DS_Store` files, and the two previously tracked copies were removed.
 - `README.md` now maps the active website, motion studies, legacy studies, shared assets, redirects, and handoff files.
 - `ORGANIZATION-MAP.md` records the old and new locations, consolidated asset paths, retained unique media, and recovery information.
+- `FILE-PATH-MAP.md` is the exhaustive ledger with an explicit old and new absolute path for every moved parent file, moved legacy study, consolidated duplicate asset, and removed Finder metadata file.
 - No Cloudflare/Wrangler config or package/build configuration is stored here; deployment configuration appears to live in the Cloudflare dashboard.
 
 Do not rewrite existing Git history merely to reduce `.git` size unless the user explicitly approves that disruptive maintenance. Future large binaries may use Git LFS only after confirming that the deployment workflow supports it.

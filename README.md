@@ -12,6 +12,7 @@ Standalone HTML design and motion studies for the Finer Things luxury hospitalit
 - `finer-things-website/AGENTS.md` — detailed handoff for the active website.
 - `_redirects` — Cloudflare Pages redirects preserving the former root URLs of legacy mockups.
 - `ORGANIZATION-MAP.md` — exact record of the 2026-08-14 old and new file locations.
+- `FILE-PATH-MAP.md` — exhaustive one-row-per-file ledger of every move, consolidation, and metadata removal.
 
 The parent `alex playground/archive/early-homepage-experiments/` folder contains experiments that predate this Git repository, together with the media required to open them. It is deliberately outside this repository and is not deployed by Cloudflare Pages.
 
