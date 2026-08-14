@@ -6,7 +6,7 @@ The work has moved beyond homepage explorations into a connected multi-page webs
 
 Before changing anything inside that folder, read `finer-things-website/AGENTS.md`. It contains the current page map, approved interaction decisions, known placeholders, recent fixes, and validation commands.
 
-The root-level `mockup-*.html` files remain design history and comparison material. Do not use `mockup-luxury-refinement.html` as the active homepage anymore unless the user explicitly asks to return to the exploratory phase. Do not overwrite or delete the root mockups.
+The files in `studies/legacy-homepages/` remain design history and comparison material. Do not use `studies/legacy-homepages/mockup-luxury-refinement.html` as the active homepage anymore unless the user explicitly asks to return to the exploratory phase. Do not overwrite or delete these preserved studies.
 
 ## Mandatory documentation discipline
 
@@ -30,14 +30,14 @@ The intended visual direction is elegant, restrained, editorial, chic, and luxur
 
 ## Files and their roles
 
-- `mockup-first.html`: Original first design. Keep it as a baseline.
-- `mockup-second.html`: Original second design with the cinematic scroll hero. Keep it as a baseline.
-- `mockup-grand-salon.html`: Full duplicate of the first design with the selected Grand Salon Featured gallery. This is the strongest version of the first direction.
-- `mockup-cinematic-portfolio.html`: Duplicate of the second design. Its Featured section is a vertically stacking editorial project cascade. The earlier interactive project-index concept was rejected and is no longer displayed, although some unused CSS for it may remain.
-- `mockup-atelier-filmstrip.html`: Duplicate of the second design with a pinned horizontal Atelier Filmstrip Featured section. The user liked this direction. Its scroll motion was subsequently changed to eased interpolation with continuous distance-based scaling and opacity.
-- `mockup-added-sections.html`: Duplicate of `mockup-first.html` used to develop the approved family story, experience numbers/testimonial proof section, corrected CTA/newsletter order, and revised end-of-page color rhythm. Preserve it as the pre-refinement comparison.
-- `mockup-luxury-refinement.html`: Strongest preserved exploration of the first-design direction and the source for the active site's homepage. Keep it as historical comparison; active work now continues in `finer-things-website/index.html`.
-- `section-ideas.html`: Earlier comparison/prototyping page for three variants of the living mosaic. The user selected the first “Grand Salon” direction. Treat this as an experiment, not the main deliverable.
+- `studies/legacy-homepages/mockup-first.html`: Original first design. Keep it as a baseline.
+- `studies/legacy-homepages/mockup-second.html`: Original second design with the cinematic scroll hero. Keep it as a baseline.
+- `studies/legacy-homepages/mockup-grand-salon.html`: Full duplicate of the first design with the selected Grand Salon Featured gallery. This is the strongest version of the first direction.
+- `studies/legacy-homepages/mockup-cinematic-portfolio.html`: Duplicate of the second design. Its Featured section is a vertically stacking editorial project cascade. The earlier interactive project-index concept was rejected and is no longer displayed, although some unused CSS for it may remain.
+- `studies/legacy-homepages/mockup-atelier-filmstrip.html`: Duplicate of the second design with a pinned horizontal Atelier Filmstrip Featured section. The user liked this direction. Its scroll motion was subsequently changed to eased interpolation with continuous distance-based scaling and opacity.
+- `studies/legacy-homepages/mockup-added-sections.html`: Duplicate of `studies/legacy-homepages/mockup-first.html` used to develop the approved family story, experience numbers/testimonial proof section, corrected CTA/newsletter order, and revised end-of-page color rhythm. Preserve it as the pre-refinement comparison.
+- `studies/legacy-homepages/mockup-luxury-refinement.html`: Strongest preserved exploration of the first-design direction and the source for the active site's homepage. Keep it as historical comparison; active work now continues in `finer-things-website/index.html`.
+- `studies/legacy-homepages/section-ideas.html`: Earlier comparison/prototyping page for three variants of the living mosaic. The user selected the first “Grand Salon” direction. Treat this as an experiment, not the main deliverable.
 
 Do not overwrite the two original baseline files unless the user explicitly asks. For a new direction, duplicate the closest existing variant and use a meaningful filename.
 
@@ -45,7 +45,7 @@ Do not overwrite the two original baseline files unless the user explicitly asks
 
 ### Assets
 
-All raster images and WebM videos live in `assets/`. All HTML references should use `assets/<filename>`.
+All repository raster images and WebM videos live in the single root `assets/` library. Legacy studies use `../../assets/<filename>`, active website pages use `../assets/<filename>`, and luxury motion studies use `../../assets/<filename>`.
 
 The folder currently contains:
 
@@ -88,7 +88,7 @@ Do not reintroduce “From the House,” “A personal note on places with soul,
 
 ### Latest first-direction homepage structure
 
-The approved structure in `mockup-luxury-refinement.html` is:
+The approved structure in `studies/legacy-homepages/mockup-luxury-refinement.html` is:
 
 1. Hero
 2. Purpose
@@ -137,7 +137,7 @@ The CTA background was intentionally made a little brighter. Preserve the distin
 
 ### Luxury refinement pass
 
-`mockup-luxury-refinement.html` includes these deliberate refinements:
+`studies/legacy-homepages/mockup-luxury-refinement.html` includes these deliberate refinements:
 
 - Real project imagery replaces generic `hero5.webp`–`hero7.webp` images in the three service rows.
 - Service imagery uses quieter saturation, deeper contrast, and meaningful alt text.
@@ -177,7 +177,7 @@ The current public website is `https://finerthingsdesigns.com/`. Useful confirme
 
 ## Main Featured directions
 
-### Grand Salon (`mockup-grand-salon.html`)
+### Grand Salon (`studies/legacy-homepages/mockup-grand-salon.html`)
 
 - A full-width/full-height 12-frame living mosaic.
 - Responsive gutters use the same `var(--ink)` color as the Featured section background.
@@ -187,7 +187,7 @@ The current public website is `https://finerthingsdesigns.com/`. Useful confirme
 - The JavaScript `salonImages` array currently contains all 44 image assets that existed when it was authored. If assets change, update this array so all images participate.
 - Initial frames use the newer project imagery rather than the old hero images.
 
-### Editorial project cascade (`mockup-cinematic-portfolio.html`)
+### Editorial project cascade (`studies/legacy-homepages/mockup-cinematic-portfolio.html`)
 
 - Four oversized project chapters stack as the user scrolls.
 - Each chapter has a full image, minimal caption, and floating detail crop.
@@ -195,7 +195,7 @@ The current public website is `https://finerthingsdesigns.com/`. Useful confirme
 - The user has not explicitly approved this replacement yet.
 - **2026-08-13 deployment fix:** The project chapters now fail open instead of remaining permanently clipped when `IntersectionObserver` delivery is delayed or unavailable. Base CSS keeps chapters visible; JavaScript applies the cinematic clip only after adding `motion-ready`/`awaiting-reveal`, immediately reveals chapters already in view, observes the rest at a `0.01` threshold, and includes a 2.2-second safety reveal. The sticky stacking and reduced-motion behavior remain intact. This fix was pushed to `main` in commit `fcb08c4`; the detailed diagnosis is recorded in `finer-things-website/AGENTS.md`.
 
-### Atelier Filmstrip (`mockup-atelier-filmstrip.html`)
+### Atelier Filmstrip (`studies/legacy-homepages/mockup-atelier-filmstrip.html`)
 
 - This is currently a liked direction.
 - A `400svh` scroll region pins a full-screen horizontal filmstrip.
@@ -239,13 +239,30 @@ rg -o "assets/[A-Za-z0-9._-]+" FILE.html | sort -u | while read asset; do test -
 
 ## Likely next work for the preserved mockups
 
-- Continue from `finer-things-website/index.html` for the active website. Use `mockup-luxury-refinement.html` only as historical comparison.
+- Continue from `finer-things-website/index.html` for the active website. Use `studies/legacy-homepages/mockup-luxury-refinement.html` only as historical comparison.
 - Obtain client confirmation for `100+` artisans and `50` destinations.
 - Replace the placeholder testimonial with a real named client quote and attribution.
 - Confirm Finer Living launch, availability, and fulfillment wording.
 - Replace mockup `#` links and connect the newsletter/contact actions when final URLs and platforms are supplied.
-- Visually compare `mockup-added-sections.html` with `mockup-luxury-refinement.html` before removing or reversing any refinement.
-- Continue polishing `mockup-atelier-filmstrip.html` if the user wants adjustments to the liked horizontal direction.
+- Visually compare `studies/legacy-homepages/mockup-added-sections.html` with `studies/legacy-homepages/mockup-luxury-refinement.html` before removing or reversing any refinement.
+- Continue polishing `studies/legacy-homepages/mockup-atelier-filmstrip.html` if the user wants adjustments to the liked horizontal direction.
 - Compare the Grand Salon and Atelier Filmstrip as the two strongest Featured options.
 - Re-inventory `assets/` whenever the user says images were updated.
 - Browser-test desktop and mobile scroll behavior before treating a direction as final.
+
+## Organization cleanup — 2026-08-14 (implemented)
+
+The user approved the cleanup across the parent `alex playground` and this repository. Resulting state:
+
+- The parent folder now contains only `alex-mockups/`, `archive/`, and Finder metadata. All 30 loose early files moved without content changes to `../archive/early-homepage-experiments/`; the before/after SHA-256 hash multisets matched.
+- The unique parent files `4.webm` and `5.webm` remain in that archive alongside the early experiments and their other media, keeping all relative media references functional.
+- The eight preserved root HTML studies moved to `studies/legacy-homepages/`, and their asset paths now use `../../assets/`.
+- `_redirects` preserves the extensionless and `.html` versions of every former root study URL on Cloudflare Pages.
+- Root `assets/` is the only current repository media library. The verified byte-identical `finer-things-website/assets/` copy was removed and remains recoverable through Git history.
+- Active website pages reference `../assets/`; files in `finer-things-website/luxury-motion-studies/` reference `../../assets/`.
+- `.gitignore` excludes Finder `.DS_Store` files, and the two previously tracked copies were removed.
+- `README.md` now maps the active website, motion studies, legacy studies, shared assets, redirects, and handoff files.
+- `ORGANIZATION-MAP.md` records the old and new locations, consolidated asset paths, retained unique media, and recovery information.
+- No Cloudflare/Wrangler config or package/build configuration is stored here; deployment configuration appears to live in the Cloudflare dashboard.
+
+Do not rewrite existing Git history merely to reduce `.git` size unless the user explicitly approves that disruptive maintenance. Future large binaries may use Git LFS only after confirming that the deployment workflow supports it.

@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Finer Things — Living Gallery Studies</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root{--paper:#f0ede6;--ink:#25241f;--night:#22221d;--cream:#e8e1d5;--brass:#a36f50;--muted:#777168;--line:rgba(255,255,255,.13)}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font:300 15px/1.7 Jost,sans-serif}button{font:inherit}img{display:block;width:100%;height:100%;object-fit:cover}.serif{font-family:"Cormorant Garamond",serif}
+    .intro,.outro{min-height:72vh;display:grid;place-items:center;padding:8vw}.intro-inner,.outro-inner{width:min(1140px,100%)}.eyebrow{font-size:.61rem;letter-spacing:.25em;text-transform:uppercase;color:var(--brass)}h1,h2,p{margin-top:0}.intro h1,.outro h2{max-width:12ch;margin:.22em 0;font:400 clamp(4rem,8.5vw,8.5rem)/.84 "Cormorant Garamond",serif;letter-spacing:-.045em}.intro p,.outro p{max-width:49ch;color:var(--muted)}
+    .gallery-lab{position:relative;background:var(--night);color:var(--cream)}.switcher-shell{position:sticky;top:0;z-index:30;padding:15px clamp(15px,3vw,42px);background:rgba(30,30,25,.87);border-bottom:1px solid var(--line);backdrop-filter:blur(18px)}.switcher{display:flex;align-items:center;gap:8px;max-width:1400px;margin:auto;overflow:auto;scrollbar-width:none}.switcher::-webkit-scrollbar{display:none}.switch-label{margin-right:auto;padding-right:28px;white-space:nowrap;font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;color:#aaa498}.tab{flex:none;padding:9px 17px;border:1px solid rgba(255,255,255,.2);border-radius:100px;background:transparent;color:#bab4a8;cursor:pointer;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;transition:.4s}.tab:hover,.tab.active{background:var(--cream);border-color:var(--cream);color:var(--ink)}
+    .stage{position:relative;min-height:calc(100svh - 67px);overflow:hidden}.concept{position:absolute;inset:0;visibility:hidden;opacity:0;pointer-events:none}.concept.active{position:relative;visibility:visible;opacity:1;pointer-events:auto}.gallery{height:calc(100svh - 67px);min-height:700px;display:grid;gap:4px;padding:4px;background:#11110e}.tile{position:relative;min-width:0;min-height:0;overflow:hidden;background:#171611}.tile img{position:absolute;inset:0;filter:saturate(.76) brightness(.9);transform:scale(1.025)}.tile::after{content:"";position:absolute;inset:0;z-index:3;pointer-events:none;border:1px solid rgba(255,255,255,.025)}.incoming{z-index:2}.gallery-meta{position:absolute;z-index:10;left:clamp(20px,3.5vw,55px);top:clamp(20px,4vh,45px);max-width:370px;padding:18px 21px;background:rgba(24,23,18,.66);border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(12px)}.gallery-meta span{font-size:.56rem;letter-spacing:.23em;text-transform:uppercase;color:#d4a98c}.gallery-meta h2{margin:.12em 0;font:400 clamp(2rem,3.7vw,4rem)/.95 "Cormorant Garamond",serif}.gallery-meta p{margin:0;color:rgba(240,234,222,.68);font-size:.7rem}.live-mark{position:absolute;z-index:10;right:clamp(18px,3vw,45px);bottom:25px;display:flex;align-items:center;gap:10px;font-size:.54rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.68)}.live-mark::before{content:"";width:6px;height:6px;border-radius:50%;background:#bd8464;box-shadow:0 0 0 5px rgba(189,132,100,.14);animation:pulse 2s infinite}@keyframes pulse{50%{box-shadow:0 0 0 9px transparent}}
+
+    /* Version 1: balanced salon — 12 frames */
+    .salon{grid-template-columns:1fr .72fr .8fr 1fr .68fr;grid-template-rows:1fr .72fr .9fr 1fr;gap:clamp(5px,.55vw,9px);padding:clamp(5px,.55vw,9px);background:#d8d0c2}.salon .tile:nth-of-type(1){grid-column:1/3;grid-row:1/3}.salon .tile:nth-of-type(2){grid-column:3;grid-row:1}.salon .tile:nth-of-type(3){grid-column:4;grid-row:1/3}.salon .tile:nth-of-type(4){grid-column:5;grid-row:1}.salon .tile:nth-of-type(5){grid-column:3;grid-row:2}.salon .tile:nth-of-type(6){grid-column:5;grid-row:2}.salon .tile:nth-of-type(7){grid-column:1;grid-row:3}.salon .tile:nth-of-type(8){grid-column:2/4;grid-row:3}.salon .tile:nth-of-type(9){grid-column:4;grid-row:3}.salon .tile:nth-of-type(10){grid-column:5;grid-row:3/5}.salon .tile:nth-of-type(11){grid-column:1/3;grid-row:4}.salon .tile:nth-of-type(12){grid-column:3/5;grid-row:4}.salon .incoming{animation:salonReveal 1.35s cubic-bezier(.76,0,.24,1) both}.salon .tile:nth-of-type(3n) .incoming{animation-name:salonSide}.salon .tile:nth-of-type(4n) .incoming{animation-name:salonFocus}@keyframes salonReveal{from{clip-path:inset(100% 0 0);transform:scale(1.13)}to{clip-path:inset(0);transform:scale(1.025)}}@keyframes salonSide{from{clip-path:inset(0 100% 0 0);transform:scale(1.13)}to{clip-path:inset(0);transform:scale(1.025)}}@keyframes salonFocus{from{opacity:0;filter:blur(14px) saturate(.45);transform:scale(1.16)}to{opacity:1;filter:blur(0) saturate(.76);transform:scale(1.025)}}
+
+    /* Version 2: editorial rhythm — 9 frames */
+    .editorial{grid-template-columns:1.12fr .72fr .86fr .78fr 1.15fr;grid-template-rows:1.1fr .8fr 1fr}.editorial .tile:nth-of-type(1){grid-column:1/3;grid-row:1}.editorial .tile:nth-of-type(2){grid-column:3;grid-row:1/3}.editorial .tile:nth-of-type(3){grid-column:4;grid-row:1}.editorial .tile:nth-of-type(4){grid-column:5;grid-row:1/3}.editorial .tile:nth-of-type(5){grid-column:1;grid-row:2}.editorial .tile:nth-of-type(6){grid-column:2;grid-row:2/4}.editorial .tile:nth-of-type(7){grid-column:4;grid-row:2}.editorial .tile:nth-of-type(8){grid-column:1;grid-row:3}.editorial .tile:nth-of-type(9){grid-column:3/6;grid-row:3}.editorial .tile img{filter:saturate(.68) contrast(.96)}.editorial .incoming{animation:pageTurn 1.45s cubic-bezier(.16,1,.3,1) both;transform-origin:left center}.editorial .tile:nth-of-type(even) .incoming{transform-origin:right center;animation-name:softFold}@keyframes pageTurn{from{opacity:0;clip-path:polygon(0 0,0 0,0 100%,0 100%);transform:scale(1.09) translateX(-4%)}to{opacity:1;clip-path:polygon(0 0,100% 0,100% 100%,0 100%);transform:scale(1.025) translateX(0)}}@keyframes softFold{from{opacity:0;clip-path:polygon(100% 0,100% 0,100% 100%,100% 100%);transform:scale(1.1) translateX(4%)}to{opacity:1;clip-path:polygon(0 0,100% 0,100% 100%,0 100%);transform:scale(1.025) translateX(0)}}
+
+    /* Version 3: cinematic tapestry — 10 frames */
+    .tapestry{grid-template-columns:.65fr 1.08fr .7fr 1.2fr .65fr;grid-template-rows:1fr 1fr}.tapestry .tile img{filter:saturate(.63) brightness(.82)}.tapestry .incoming{animation:velvet 1.8s cubic-bezier(.22,1,.36,1) both}@keyframes velvet{0%{opacity:0;filter:brightness(.3) blur(6px) saturate(.3);transform:scale(1.18)}45%{opacity:1}100%{filter:brightness(.82) blur(0) saturate(.63);transform:scale(1.025)}}
+    .outro{min-height:78vh;background:#e9e4db}.outro h2{font-size:clamp(3.5rem,7vw,7rem)}
+    @media(max-width:760px){.switch-label{display:none}.switcher-shell{padding:11px}.stage{min-height:760px}.gallery{height:760px;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(4,1fr)}.gallery-meta{top:18px;left:18px;right:18px;max-width:none}.gallery-meta p{display:none}.gallery .tile{grid-column:auto!important;grid-row:auto!important}.gallery .tile:first-of-type{grid-column:1/3!important;grid-row:1/3!important}.gallery .tile:nth-of-type(n+10){display:none}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.incoming{animation:none!important}.live-mark::before{animation:none}}
+  </style>
+</head>
+<body>
+  <section class="intro"><div class="intro-inner"><div class="eyebrow">Finer Things · Living gallery</div><h1>A collection in motion.</h1><p>Three interpretations of one idea: a full-screen field of independent slideshows. The images never change in unison; the composition evolves gently, one or two frames at a time.</p></div></section>
+
+  <main class="gallery-lab">
+    <nav class="switcher-shell" aria-label="Living gallery versions"><div class="switcher"><span class="switch-label">Choose a composition</span><button class="tab active" data-target="salon">01 Grand salon</button><button class="tab" data-target="editorial">02 Editorial rhythm</button><button class="tab" data-target="tapestry">03 Cinematic tapestry</button></div></nav>
+    <div class="stage">
+      <section class="concept active" id="salon"><div class="gallery salon" data-gallery="salon"><header class="gallery-meta"><span>Version 01 · 12 frames</span><h2>Grand salon</h2><p>A balanced, richly layered wall. Curtain wipes, side reveals and soft-focus entrances alternate across the composition.</p></header><aside class="live-mark">Gallery evolving</aside></div></section>
+      <section class="concept" id="editorial"><div class="gallery editorial" data-gallery="editorial"><header class="gallery-meta"><span>Version 02 · 9 frames</span><h2>Editorial rhythm</h2><p>Fewer, more art-directed proportions. Images arrive like the considered turn of a page in a luxury journal.</p></header><aside class="live-mark">Gallery evolving</aside></div></section>
+      <section class="concept" id="tapestry"><div class="gallery tapestry" data-gallery="tapestry"><header class="gallery-meta"><span>Version 03 · 10 frames</span><h2>Cinematic tapestry</h2><p>Tall, immersive panels with slower dissolves. The most atmospheric and architectural interpretation.</p></header><aside class="live-mark">Gallery evolving</aside></div></section>
+    </div>
+  </main>
+
+  <section class="outro"><div class="outro-inner"><div class="eyebrow">The collection continues</div><h2>Made slowly. Remembered always.</h2><p>This calm editorial section shows how the living gallery transitions back into the wider website. When the final direction is chosen, its image pool can grow without changing the layout or animation system.</p></div></section>
+
+  <script>
+    const images=['../../assets/hero1.webp','../../assets/hero2.webp','../../assets/hero3.webp','../../assets/hero4.webp','../../assets/hero5.webp','../../assets/hero6.webp','../../assets/hero7.webp','../../assets/1.jpg','../../assets/2.jpg','../../assets/3.jpg'];
+    const specs={salon:12,editorial:9,tapestry:10};
+    const states={};
+    Object.entries(specs).forEach(([name,count])=>{
+      const gallery=document.querySelector(`[data-gallery="${name}"]`);states[name]={cursor:count,cycle:0};
+      for(let i=0;i<count;i++){const tile=document.createElement('div');tile.className='tile';const img=document.createElement('img');img.src=images[i%images.length];img.alt='Finer Things collection detail';tile.appendChild(img);gallery.appendChild(tile)}
+    });
+
+    function changeTile(tile,src){
+      const old=tile.querySelector('img'),fresh=document.createElement('img');fresh.src=src;fresh.alt=old.alt;fresh.className='incoming';tile.appendChild(fresh);
+      let settled=false;const settle=()=>{if(settled)return;settled=true;old.remove();fresh.classList.remove('incoming')};
+      fresh.addEventListener('animationend',settle,{once:true});setTimeout(settle,2000);
+    }
+    function evolve(name){
+      const concept=document.getElementById(name);if(!concept.classList.contains('active'))return;
+      const state=states[name],tiles=[...concept.querySelectorAll('.tile')],amount=state.cycle%3===2?2:1,start=(state.cursor*3+state.cycle*5)%tiles.length;
+      for(let i=0;i<amount;i++){const index=(start+i*4)%tiles.length,src=images[(state.cursor+index+i*2)%images.length];setTimeout(()=>changeTile(tiles[index],src),i*340)}
+      state.cursor++;state.cycle++;
+    }
+    const timers={salon:setInterval(()=>evolve('salon'),2800),editorial:setInterval(()=>evolve('editorial'),3400),tapestry:setInterval(()=>evolve('tapestry'),3900)};
+
+    document.querySelectorAll('.tab').forEach(tab=>tab.addEventListener('click',()=>{
+      document.querySelector('.tab.active')?.classList.remove('active');tab.classList.add('active');document.querySelector('.concept.active')?.classList.remove('active');
+      const chosen=document.getElementById(tab.dataset.target);chosen.classList.add('active');
+      chosen.querySelectorAll('.tile').forEach((tile,i)=>tile.animate([{opacity:0,transform:'translateY(28px)'},{opacity:1,transform:'translateY(0)'}],{duration:750,delay:Math.min(i*45,400),easing:'cubic-bezier(.16,1,.3,1)'}));
+      setTimeout(()=>evolve(tab.dataset.target),900);
+    }));
+  </script>
+</body>
+</html>
