@@ -99,6 +99,8 @@ Never present these placeholders as verified production facts. The Privacy Polic
 
 All media lives in the repository root `../assets/`. Active pages in this folder reference `../assets/<filename>`; pages in `luxury-motion-studies/` reference `../../assets/<filename>`. Current groups include Marsa Al Arab lobby, suite, corridor, Bombay Club and Iliana imagery; Waldorf Astoria Osaka imagery; Finer Living imagery; the Alex and Malika family portrait; seven older hero images; and three product still/video pairs.
 
+All 45 still images are now WebP files. They are encoded at high visual quality with ICC colour profiles retained and a maximum long edge of 2560 pixels; the three product stills are `1.webp`–`3.webp`, and the family portrait is `finer-things-family.webp`. The source-sized JPEG/PNG versions and oversized WebP encodings were replaced as part of the approved image-compression pass. WebM videos remain unchanged.
+
 Re-inventory `../assets/` before assuming the list is complete because the user may add images. Keep meaningful alt text for named projects and spaces. Do not recreate an `assets/` copy inside this folder.
 
 ## Editing conventions
@@ -131,6 +133,8 @@ Keep rejected ideas labeled as rejected and current decisions labeled as current
 ## Decision and rollback log
 
 Add dated entries here for meaningful changes that future agents could otherwise misunderstand. Keep entries concise and state the final authoritative outcome.
+
+- **2026-08-14 — Sitewide image compression:** All 45 still images in the shared root asset library were standardized as WebP, encoded at quality 82 with sharp YUV conversion and retained ICC profiles, and constrained to a 2560 px maximum long edge. HTML references to the former `1.jpg`, `2.jpg`, `3.jpg`, and `finer-things-family.png` assets now use their `.webp` replacements. Still-image payload fell from 74,348,543 bytes to 16,363,112 bytes (about 78%); WebM videos were not changed.
 
 - **2026-08-12 — Documentation workflow:** The user required all future meaningful changes to update the Markdown handoff immediately. Rollbacks must retain a clear record of the attempted behavior, the reversal, and the currently authoritative behavior.
 - **2026-08-12 — Homepage wordmark speed:** The shrinking wordmark was temporarily slowed, then the user rejected that speed change. The original faster scroll-shrink behavior is authoritative; the starting wordmark remains approximately 70% of viewport width.

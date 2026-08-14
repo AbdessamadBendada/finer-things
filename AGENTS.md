@@ -47,13 +47,15 @@ Do not overwrite the two original baseline files unless the user explicitly asks
 
 All repository raster images and WebM videos live in the single root `assets/` library. Legacy studies use `../../assets/<filename>`, active website pages use `../assets/<filename>`, and luxury motion studies use `../../assets/<filename>`.
 
+As of the 2026-08-14 compression pass, all 45 still images are WebP files encoded at quality 82 with ICC profiles retained and a maximum 2560 px long edge. This includes `1.webp`–`3.webp` (formerly JPEG) and `finer-things-family.webp` (formerly PNG). The still-image library is approximately 16.4 MB, reduced from approximately 74.3 MB; the three WebM videos were not altered.
+
 The folder currently contains:
 
 - 34 newer `.webp` project images, numbered approximately `0661`–`0704`
 - 7 original `hero*.webp` images
-- 3 product stills: `1.jpg`, `2.jpg`, `3.jpg`
+- 3 product stills: `1.webp`, `2.webp`, `3.webp`
 - 3 product videos: `1.webm`, `2.webm`, `3.webm`
-- Supplied family portrait: `finer-things-family.png`
+- Supplied family portrait: `finer-things-family.webp`
 
 The newer filenames identify projects such as Marsa Al Arab Lobby, Suites, Corridors, Iliana, Bombay Club, and Waldorf Astoria Osaka. Use those names when creating project groupings. Always inventory `assets/` again before assuming this list is current; the user may add more images.
 
