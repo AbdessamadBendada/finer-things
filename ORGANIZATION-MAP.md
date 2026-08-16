@@ -53,7 +53,7 @@ Their local media references changed from `assets/...` to `../../assets/...`. Cl
 - Added `alex-mockups/.gitignore` so Finder metadata is not tracked again.
 - Expanded `alex-mockups/README.md` into the current project map.
 - The active website stayed in `alex-mockups/finer-things-website/`.
-- The experimental `-2` pages stayed in `alex-mockups/finer-things-website/luxury-motion-studies/`.
+- The experimental pages remain in `alex-mockups/finer-things-website/luxury-motion-studies/`; their former `*-2.html` filenames were later simplified to clean `.html` names, with compatibility redirects retained.
 
 ## Recovery
 

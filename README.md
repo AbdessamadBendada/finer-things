@@ -5,7 +5,7 @@ Standalone HTML design and motion studies for the Finer Things luxury hospitalit
 ## Project map
 
 - `finer-things-website/` — current authoritative multi-page website.
-- `finer-things-website/luxury-motion-studies/` — experimental `-2` page variants. They reference the shared root asset library and do not contain copied media.
+- `finer-things-website/luxury-motion-studies/` — experimental clean-name page variants. They share `study-shared.css` and `study-shared.js`, reference the root asset library, and do not contain copied media.
 - `studies/legacy-homepages/` — preserved first-generation homepage and Featured-section explorations. These are references, not the active site.
 - `assets/` — the single canonical image and video library for the repository.
 - `AGENTS.md` — repository-wide decisions, history, and working rules.

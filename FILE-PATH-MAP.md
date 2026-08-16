@@ -121,6 +121,5 @@ These were operating-system metadata rather than project content. They were remo
 | Existing path | Status |
 |---|---|
 | `/Users/mac/Documents/Current Projects/alex playground/alex-mockups/finer-things-website/` | Still the active authoritative website |
-| `/Users/mac/Documents/Current Projects/alex playground/alex-mockups/finer-things-website/luxury-motion-studies/` | Still the experimental `-2` page collection |
+| `/Users/mac/Documents/Current Projects/alex playground/alex-mockups/finer-things-website/luxury-motion-studies/` | Experimental clean-name page collection; former `*-2.html` paths are preserved through redirects |
 | `/Users/mac/Documents/Current Projects/alex playground/alex-mockups/assets/` | Still the canonical repository media library |
-
