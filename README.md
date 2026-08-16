@@ -11,15 +11,21 @@ Standalone HTML design and motion studies for the Finer Things luxury hospitalit
 - `AGENTS.md` — repository-wide decisions, history, and working rules.
 - `finer-things-website/AGENTS.md` — detailed handoff for the active website.
 - `_redirects` — Cloudflare Pages redirects preserving the former root URLs of legacy mockups.
+- `wordpress/finer-things-headless/` — source for the companion headless WordPress integration plugin.
+- `dist/finer-things-headless.zip` — installable build of the WordPress plugin.
 - `ORGANIZATION-MAP.md` — exact record of the 2026-08-14 old and new file locations.
 - `FILE-PATH-MAP.md` — exhaustive one-row-per-file ledger of every move, consolidation, and metadata removal.
 
 The parent `alex playground/archive/early-homepage-experiments/` folder contains experiments that predate this Git repository, together with the media required to open them. It is deliberately outside this repository and is not deployed by Cloudflare Pages.
 
+## Headless WordPress direction
+
+The approved stack is Next.js App Router on Vercel with WordPress, ACF Free, Yoast SEO, the native WordPress REST API, and on-demand revalidation. The twelve-page frontend migration now lives in the sibling `../alex-next/` project. The standalone HTML studies remain the authoritative visual reference until the Next.js build is visually approved; WordPress data integration is the next phase.
+
 ## Current entry points
 
 - Active homepage: `finer-things-website/index.html`
-- Experimental motion homepage: `finer-things-website/luxury-motion-studies/index-2.html`
+- Experimental motion homepage: `finer-things-website/luxury-motion-studies/index.html`
 - Preserved legacy studies: `studies/legacy-homepages/`
 
 ## Editing rules

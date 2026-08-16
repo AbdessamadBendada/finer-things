@@ -2,11 +2,19 @@
 
 ## Current active deliverable
 
-The work has moved beyond homepage explorations into a connected multi-page website. The active deliverable is now the self-contained site in `finer-things-website/`, with `finer-things-website/index.html` as its homepage.
+The active implementation deliverable is the standalone Next.js site in the sibling `../alex-next/`. The connected static site in `finer-things-website/` remains preserved, and the twelve files in `finer-things-website/luxury-motion-studies/` are the immutable visual/content references for the Next.js transcription.
 
 Before changing anything inside that folder, read `finer-things-website/AGENTS.md`. It contains the current page map, approved interaction decisions, known placeholders, recent fixes, and validation commands.
 
+The sibling `../alex-next/` is the production Next.js transcription of the luxury motion studies. Its homepage remains an isolated fidelity port, while all interior routes use route-group layouts and carefully limited page-family sharing. Read `../alex-next/AGENTS.md`, `../alex-next/ARCHITECTURE.md`, and `../alex-next/PRODUCTION-READINESS.md` before changing or evaluating that frontend.
+
 The files in `studies/legacy-homepages/` remain design history and comparison material. Do not use `studies/legacy-homepages/mockup-luxury-refinement.html` as the active homepage anymore unless the user explicitly asks to return to the exploratory phase. Do not overwrite or delete these preserved studies.
+
+## Archived headless architecture — 2026-08-14 (out of current scope)
+
+The user originally approved a future WordPress-backed Next.js architecture, then explicitly removed WordPress, ACF, WooCommerce, previews, and revalidation from the active scope on 2026-08-15. That integration was not added to `../alex-next/`; its local typed content is now authoritative. Preserve the plugin artifacts below as history, but do not modify or integrate them unless the user explicitly reopens CMS work.
+
+The companion plugin source lives in `wordpress/finer-things-headless/`, and its installable ZIP lives at `dist/finer-things-headless.zip`. Version 0.1.0 deliberately does not register the `project` post type or duplicate the manually created `project_location`, `project_introduction`, and `project_hero_image` fields. It adds ACF Free-compatible fixed fields for four chapters, four gallery images, an optional listing image, and project ordering, all exposed through REST.
 
 ## Mandatory documentation discipline
 
@@ -58,6 +66,8 @@ The folder currently contains:
 - Supplied family portrait: `finer-things-family.webp`
 
 The newer filenames identify projects such as Marsa Al Arab Lobby, Suites, Corridors, Iliana, Bombay Club, and Waldorf Astoria Osaka. Use those names when creating project groupings. Always inventory `assets/` again before assuming this list is current; the user may add more images.
+
+The shared library also contains `assets/fonts/goudy-old-style.ttf`, `assets/fonts/rodetta.ttf`, and `assets/fonts/rodetta-license-note.txt`. They were added on 2026-08-16 solely for a private typography experiment across `finer-things-website/luxury-motion-studies/`: Goudy is the experimental editorial/display serif, Rodetta is restricted to intact `Finer Things` wordmarks, and Jost remains the body/interface face. `study-shared.css` and `study-shared.js` centralize the studies' common typography/navigation foundation while page-specific layouts and cinematic behavior remain local. The licence note identifies Rodetta as personal-use material. Do not treat repository presence as production permission; the client must purchase/verify appropriate licences before deployment, and the experiment must not be propagated to the active homepage or Next.js without user approval.
 
 ### Pinned second-section statement
 
@@ -269,3 +279,21 @@ The user approved the cleanup across the parent `alex playground` and this repos
 - No Cloudflare/Wrangler config or package/build configuration is stored here; deployment configuration appears to live in the Cloudflare dashboard.
 
 Do not rewrite existing Git history merely to reduce `.git` size unless the user explicitly approves that disruptive maintenance. Future large binaries may use Git LFS only after confirming that the deployment workflow supports it.
+
+## Next.js migration — 2026-08-15
+
+The user approved and initiated a production Next.js rebuild in the sibling directory `../alex-next/`, using all twelve pages in `finer-things-website/luxury-motion-studies/` as the visual and content reference. The HTML studies remain preserved and authoritative comparison material; they were not edited during the migration. The new frontend uses Next.js App Router, TypeScript, Tailwind CSS, shared page-family components, clean routes, optimized local assets, SEO metadata, sitemap/robots/manifest, legacy redirects, security headers and reduced-motion fallbacks. `../alex-next/AGENTS.md` is the implementation handoff and records remaining production blockers. Until the user visually approves the rebuilt site and the live domain is switched, this repository remains the preserved study/source reference.
+
+On 2026-08-16, the user renamed the twelve authoritative study files from `*-2.html` to clean `.html` filenames. Their internal links, handoff references, sibling Next.js fixtures/audit mappings, and compatibility redirects now follow the clean names. The designs and public Next.js routes were not changed by this naming cleanup.
+
+Later on 2026-08-16, `finer-things-website/luxury-motion-studies/index.html` became an active HTML experiment: the proof/testimonial section was removed, Featured became a light five-chapter Atelier filmstrip, and the stripped-back newsletter form moved into the footer. This experiment intentionally diverges from the sibling Next.js homepage and its pinned fixture until the user reviews and approves it; do not silently port it or overwrite the pre-experiment fixture.
+
+The same homepage experiment now gives Our Work rows a restrained animated height increase: hover/focus drives it on desktop and viewport-center detection drives it on mobile without consuming tap navigation. A simultaneous attempt to flatten light-background display headings to dark ink was rejected; the original oxblood accents in the Purpose and family headings are authoritative again.
+
+The current migration is standalone: no WordPress integration is part of the deliverable. All twelve pages now have direct Next.js transcriptions and automated content/media/style preservation checks. Rendered desktop/mobile comparison and user approval remain the authority for final visual acceptance.
+
+For clean-checkout CI, `../alex-next/tests/fixtures/luxury-motion-studies/` contains byte-identical snapshots of the twelve authoritative `*.html` files, pinned by a SHA-256 manifest. This repository remains the source authority. When an approved study changes, update the fixture and manifest deliberately; never edit the fixture merely to make a Next.js comparison pass.
+
+### Homepage fidelity restart
+
+The user rejected the first Next.js frontend pass because it substantially redesigned the pages instead of replicating them. On 2026-08-15, work restarted with the homepage as a namespaced, section-for-section transcription of `finer-things-website/luxury-motion-studies/index.html`; the same direct-transcription discipline was then applied to the other eleven routes. The rejected approximate implementation must not be restored. All source HTML remains untouched and authoritative, and no route is visually approved until rendered comparison and user acceptance succeed.
