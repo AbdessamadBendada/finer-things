@@ -53,6 +53,8 @@ Do not overwrite the two original baseline files unless the user explicitly asks
 
 ### Assets
 
+On 2026-08-17, the user supplied `assets/finer-things-logo.png`, a combined FT monogram and `FINER THINGS` raster logo. It is currently used only by the experimental `finer-things-website/luxury-motion-studies/index.html` preloader and shrinking-logo/header handoff. The preloader presents the square monogram alone at centre, slides it left, and then introduces the name from the right; the hero transition preserves the original 520 px scroll timing. The active HTML homepage and Next.js transcription remain unchanged. Do not propagate this logo treatment until the user approves the experiment; prefer a client-supplied vector master before production if one becomes available.
+
 All repository raster images and WebM videos live in the single root `assets/` library. Legacy studies use `../../assets/<filename>`, active website pages use `../assets/<filename>`, and luxury motion studies use `../../assets/<filename>`.
 
 As of the 2026-08-14 compression pass, all 45 still images are WebP files encoded at quality 82 with ICC profiles retained and a maximum 2560 px long edge. This includes `1.webp`–`3.webp` (formerly JPEG) and `finer-things-family.webp` (formerly PNG). The still-image library is approximately 16.4 MB, reduced from approximately 74.3 MB; the three WebM videos were not altered.

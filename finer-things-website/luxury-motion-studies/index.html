@@ -39,7 +39,8 @@
   .head.show{transform:none;opacity:1;background:rgba(241,237,231,.78);
     backdrop-filter:blur(16px) saturate(1.1);-webkit-backdrop-filter:blur(16px) saturate(1.1);
     border-bottom:1px solid rgba(166,152,120,.38)}
-  .head .logo{font-family:var(--font-wordmark),var(--font-display),Georgia,serif;font-weight:400;font-style:normal;font-size:30px;color:var(--ink);text-decoration:none}
+  .head .logo{display:block;width:clamp(132px,11.2vw,162px);color:var(--ink);text-decoration:none;line-height:0}
+  .head .logo img{width:100%;height:auto;object-fit:contain;mix-blend-mode:multiply}
   .head .links{display:flex;gap:34px;list-style:none}
   .head .links a{color:var(--ink);text-decoration:none;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;opacity:.85;transition:opacity .3s}
   .head .links a:hover{opacity:.5}
@@ -62,9 +63,8 @@
   .collage-veil{position:absolute;inset:0;z-index:2;pointer-events:none;
     background:linear-gradient(180deg,rgba(40,39,28,.54),rgba(40,39,28,.24) 42%,rgba(40,39,28,.7))}
 
-  .word{position:fixed;top:14px;left:44px;right:44px;z-index:61;color:var(--paper);
-    font-family:var(--font-wordmark),var(--font-display),Georgia,serif;font-weight:400;line-height:.92;
-    transform-origin:left top;white-space:nowrap;letter-spacing:-.01em;will-change:transform}
+  .word{position:fixed;top:14px;left:44px;z-index:61;width:70vw;line-height:0;will-change:width}
+  .word img{width:100%;height:auto;object-fit:contain;filter:invert(1);mix-blend-mode:screen}
   .word.hide{visibility:hidden}
 
   .hero-copy{position:absolute;z-index:4;left:44px;right:44px;bottom:52px;
@@ -80,6 +80,8 @@
   .btn:hover{background:var(--brass);color:var(--paper)}
   .scrollcue{font-size:.64rem;letter-spacing:.26em;text-transform:uppercase;color:rgba(241,237,231,.68)}
   @media(max-width:860px){
+    .head{padding-inline:22px}
+    .word{left:22px;width:calc(100vw - 44px)}
     .hero-copy{flex-direction:column;align-items:flex-start;gap:26px}
     .hero-copy .cta-wrap{align-items:flex-start}
   }
@@ -89,23 +91,31 @@
     display:flex;flex-direction:column;align-items:center;justify-content:center;gap:36px;
     transition:transform 1.2s cubic-bezier(.76,0,.24,1)}
   .cover.lift{transform:translateY(-100%)}
-  .cover .intro-name{font-family:var(--font-wordmark),var(--font-display),Georgia,serif;font-weight:400;font-style:normal;color:var(--ink);
-    font-size:clamp(2.6rem,7vw,5.5rem);letter-spacing:-.01em;line-height:1;
-    position:relative;white-space:nowrap;
-    transition:transform .65s cubic-bezier(.16,1,.3,1),opacity .65s ease,letter-spacing .65s ease}
-  .intro-letters{display:flex;align-items:center;justify-content:center;white-space:nowrap}
-  .intro-letter{display:inline-block;opacity:0;transform:translateY(34px) rotate(3deg) scale(.92);
-    filter:blur(5px);animation:letterRise .72s cubic-bezier(.16,1,.3,1) forwards}
-  .intro-letter.space{width:.28em}
-  @keyframes letterRise{to{opacity:1;transform:none;filter:blur(0)}}
+  .cover .intro-name{position:relative;width:clamp(300px,55vw,760px);aspect-ratio:1080/242;line-height:0}
+  .intro-logo-layer{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;filter:blur(5px);
+    transform:translateY(18px) scale(.965);transform-origin:center;will-change:clip-path,transform,filter,opacity}
+  .intro-logo-mark{clip-path:inset(0 82% 0 0);opacity:0;
+    animation:introMark 1.65s cubic-bezier(.16,1,.3,1) .18s forwards}
+  .intro-logo-name{clip-path:inset(0 80% 0 20%);opacity:0;filter:blur(7px);
+    animation:introName 1.25s cubic-bezier(.16,1,.3,1) 1.4s forwards}
+  @keyframes introMark{
+    0%{opacity:0;filter:blur(6px);transform:translateX(41%) scale(.86)}
+    30%{opacity:1;filter:none;transform:translateX(41%) scale(1)}
+    53%{opacity:1;filter:none;transform:translateX(41%) scale(1)}
+    100%{opacity:1;filter:none;transform:translateX(0) scale(1)}
+  }
+  @keyframes introName{
+    0%{clip-path:inset(0 80% 0 20%);opacity:0;filter:blur(7px);transform:translateX(34px)}
+    100%{clip-path:inset(0 0 0 20%);opacity:1;filter:none;transform:none}
+  }
   .brandwords{display:flex;justify-content:center}
   .brandwords span{font-family:var(--font-display),Georgia,serif;font-style:italic;font-weight:400;
     font-size:1.3rem;color:var(--brass);letter-spacing:.06em;padding:0 26px;white-space:nowrap;
     opacity:0;transform:translateY(16px);filter:blur(4px);
     animation:brandwordIn .9s cubic-bezier(.16,1,.3,1) forwards}
-  .brandwords span:nth-child(1){animation-delay:1.25s}
-  .brandwords span:nth-child(2){animation-delay:1.58s}
-  .brandwords span:nth-child(3){animation-delay:1.91s}
+  .brandwords span:nth-child(1){animation-delay:2.2s}
+  .brandwords span:nth-child(2){animation-delay:2.48s}
+  .brandwords span:nth-child(3){animation-delay:2.76s}
   @keyframes brandwordIn{to{opacity:1;transform:none;filter:blur(0)}}
   .brandwords span:not(:last-child){border-right:1px solid rgba(201,154,91,.35)}
 
@@ -319,7 +329,7 @@
     .collage .track{animation:none !important}
     .cover{display:none}
     .cover .intro-name{opacity:1;transform:none;filter:none;animation:none}
-    .intro-name .intro-letters{display:flex;animation:none}.intro-letter{opacity:1;transform:none;filter:none;animation:none}
+    .intro-logo-layer{opacity:1;transform:none;filter:none;animation:none}.intro-logo-mark{clip-path:inset(0 82% 0 0)}.intro-logo-name{clip-path:inset(0 0 0 20%)}
     .brandwords span{opacity:1;transform:none;filter:none;animation:none}
     .hero-copy,.rise{opacity:1;transform:none;transition:none}
     .svc-row .wipe,.svc-row.wiped .wipe{clip-path:inset(0 0 0 0);transition:none}
@@ -405,7 +415,7 @@
 
 <!-- HEADER -->
 <header class="head" id="head">
-  <a href="index.html" class="logo">Finer Things</a>
+  <a href="index.html" class="logo" aria-label="Finer Things home"><img src="../../assets/finer-things-logo.png" alt=""></a>
   <ul class="links">
     <li><a href="our-work.html">Our Work</a></li>
     <li><a href="projects.html">Projects</a></li>
@@ -425,7 +435,7 @@
 </nav>
 
 <!-- big shrinking wordmark -->
-<div class="word serif" id="word">Finer Things</div>
+<div class="word" id="word" aria-hidden="true"><img src="../../assets/finer-things-logo.png" alt=""></div>
 
 <!-- 1. HERO -->
 <section class="hero" id="hero">
@@ -442,10 +452,9 @@
 
 <!-- INTRO COVER -->
 <div class="cover" id="cover">
-  <div class="intro-name serif" id="introName" aria-label="Finer Things">
-    <span class="intro-letters" aria-hidden="true">
-      <span class="intro-letter" style="animation-delay:.25s">F</span><span class="intro-letter" style="animation-delay:.325s">i</span><span class="intro-letter" style="animation-delay:.4s">n</span><span class="intro-letter" style="animation-delay:.475s">e</span><span class="intro-letter" style="animation-delay:.55s">r</span><span class="intro-letter space" style="animation-delay:.625s"></span><span class="intro-letter" style="animation-delay:.7s">T</span><span class="intro-letter" style="animation-delay:.775s">h</span><span class="intro-letter" style="animation-delay:.85s">i</span><span class="intro-letter" style="animation-delay:.925s">n</span><span class="intro-letter" style="animation-delay:1s">g</span><span class="intro-letter" style="animation-delay:1.075s">s</span>
-    </span>
+  <div class="intro-name" id="introName" role="img" aria-label="Finer Things">
+    <img class="intro-logo-layer intro-logo-mark" src="../../assets/finer-things-logo.png" alt="" aria-hidden="true">
+    <img class="intro-logo-layer intro-logo-name" src="../../assets/finer-things-logo.png" alt="" aria-hidden="true">
   </div>
   <div class="brandwords"><span>Bespoke</span><span>Styling</span><span>Heritage</span></div>
 </div>
@@ -603,27 +612,23 @@
   const cover=document.getElementById('cover');
   const hero=document.getElementById('hero');
   function begin(){cover.classList.add('handoff');setTimeout(()=>{cover.classList.add('lift');hero.classList.add('reveal');},520);}
-  window.addEventListener('load',()=>setTimeout(begin,2800));
-  setTimeout(()=>{if(!hero.classList.contains('reveal'))begin();},4700);
+  window.addEventListener('load',()=>setTimeout(begin,3800));
+  setTimeout(()=>{if(!hero.classList.contains('reveal'))begin();},5600);
 
-  /* ===== wordmark: restrained 70% width -> shrink -> clean handoff ===== */
+  /* ===== supplied logo: restrained 70% width -> shrink -> clean handoff ===== */
   const word=document.getElementById('word');
   const head=document.getElementById('head');
-  let START=90; const END=30; const DIST=520;
+  let START=window.innerWidth*.7; const DIST=520;
   const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
   function computeStart(){
-    const target=window.innerWidth*.7;
-    const prevRight=word.style.right;
-    word.style.right='auto'; word.style.fontSize='100px';
-    const w=word.getBoundingClientRect().width;
-    word.style.right=prevRight;
-    START=Math.floor(100*(target/w)*1.005);
+    START=window.innerWidth*(window.innerWidth<=860 ? 1 : .7)-(window.innerWidth<=860 ? 44 : 0);
     onScrollWord();
   }
   function onScrollWord(){
     const p=clamp(window.scrollY/DIST,0,1);
     const eased=1-Math.pow(1-p,3);
-    word.style.fontSize=(START+(END-START)*eased)+'px';
+    const end=head.querySelector('.logo').getBoundingClientRect().width;
+    word.style.width=(START+(end-START)*eased)+'px';
     head.classList.toggle('show',window.scrollY>DIST*0.92);
     word.classList.toggle('hide',p>=0.98);
   }
