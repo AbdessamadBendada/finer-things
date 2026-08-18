@@ -292,6 +292,10 @@ If the user approves implementation, start with one reusable motion language acr
 
 ## Validation after changes
 
+### 2026-08-18 — Fail-open reveal safety across luxury motion studies
+
+`luxury-motion-studies/study-shared.js` now includes a viewport-aware motion watchdog for the reveal states used across the study pages. Page-specific `IntersectionObserver` choreography remains authoritative and receives 2.2 seconds to run normally. If an observer is unavailable, delayed, interrupted by another page script, or misses content after restored/unusual scrolling, any affected element near the viewport is forced into its visible state. This covers standard rises, word masks, service/project chapters, editorial image masks, process lines, homepage service rows, and the filmstrip entrance. The watchdog checks only near-viewport elements, so below-fold choreography is preserved instead of revealing the entire document at load. This repairs the apparently empty sections reported on `projects.html` and protects the other studies that use the same fail-closed CSS pattern.
+
 Check every embedded script, not only the edited page:
 
 ```sh

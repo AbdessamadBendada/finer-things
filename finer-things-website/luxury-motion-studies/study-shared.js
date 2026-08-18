@@ -57,6 +57,50 @@
     }
   });
 
+  /*
+   * Fail-open motion watchdog.
+   *
+   * The studies intentionally begin many elements clipped or transparent and
+   * let page-specific observers reveal them. If one of those scripts fails, an
+   * observer callback is delayed, or a browser restores an unusual scroll
+   * position, the section must not remain visually empty. Elements that reach
+   * the viewport get a generous grace period for their designed animation and
+   * are then made visible by this shared fallback.
+   */
+  const failOpenGroups = [
+    [".rise, .place, .shot, .story-figure, .story-small, .story-detail, .experience-image, .world-image, .person, .principle, .family-editorial-portrait, .title-mask", ["in"]],
+    [".service, .chapter", ["in-view"]],
+    ["[data-word-reveal]", ["words-in"]],
+    [".steps", ["line-in"]],
+    [".svc-row", ["luxury-in"]],
+    [".filmstrip-scroll", ["entered", "settled"]]
+  ];
+  const failOpenTimers = new WeakSet();
+  const revealIfNeeded = () => {
+    const viewportLeeway = Math.min(180, window.innerHeight * .2);
+    failOpenGroups.forEach(([selector, classes]) => {
+      document.querySelectorAll(selector).forEach((element) => {
+        if (classes.every((className) => element.classList.contains(className)) || failOpenTimers.has(element)) return;
+        const rect = element.getBoundingClientRect();
+        if (rect.bottom < -viewportLeeway || rect.top > window.innerHeight + viewportLeeway) return;
+        failOpenTimers.add(element);
+        window.setTimeout(() => classes.forEach((className) => element.classList.add(className)), 2200);
+      });
+    });
+  };
+  let failOpenFrame = false;
+  const queueFailOpenCheck = () => {
+    if (failOpenFrame) return;
+    failOpenFrame = true;
+    window.requestAnimationFrame(() => {
+      revealIfNeeded();
+      failOpenFrame = false;
+    });
+  };
+  window.addEventListener("scroll", queueFailOpenCheck, { passive: true });
+  window.addEventListener("resize", queueFailOpenCheck);
+  queueFailOpenCheck();
+
   /* Shared legal-page reading index; inert on every other page. */
   const legalSections = [...document.querySelectorAll(".policy .content section")];
   const legalLinks = [...document.querySelectorAll(".policy .index a")];
